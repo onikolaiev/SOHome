@@ -41,6 +41,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layout\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -70,6 +71,5 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
-
 
 </Project>

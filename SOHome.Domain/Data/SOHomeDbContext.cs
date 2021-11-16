@@ -17,8 +17,8 @@ namespace SOHome.Domain.Data
 
         }
 
-        public DbSet<Person> People { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Person> People => Set<Person>();
+        public DbSet<User> Users => Set<User>();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -37,8 +37,8 @@ namespace SOHome.Domain.Data
 
             // Configuração da tabela de pessoas
             var personEntity = modelBuilder.Entity<Person>();
-            personEntity.Property(x => x.Id)
-            .HasDefaultValueSql("NEXTVAL('grid_seq')");
+            personEntity.Property(x => x.Id)                
+                .HasDefaultValueSql("NEXTVAL('grid_seq')");
             personEntity.Property(x => x.Code)
                 .HasDefaultValueSql("NEXTVAL('person_code_seq')");
 
