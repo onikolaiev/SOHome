@@ -10,6 +10,7 @@ namespace SOHome.Domain.Models
         public string Document { get; set; }
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
+        public string Email { get; set; }
         public string? StreetName { get; set; }
         public string? StreetNumber { get; set; }
         public string? District { get; set; }

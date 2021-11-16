@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 
 using SOHome.Domain.Data;
 
+using System;
+
 using VueCliMiddleware;
 
 namespace SOHome
@@ -36,6 +38,7 @@ namespace SOHome
             });
 
             services.AddScoped<IMigrationService, MigrationService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
