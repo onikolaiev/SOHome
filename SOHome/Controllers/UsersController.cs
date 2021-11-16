@@ -24,6 +24,7 @@ namespace SOHome.Controllers
             this.mapper = mapper;
         }
 
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(RegisterModel model)
         {
             try
@@ -33,7 +34,7 @@ namespace SOHome.Controllers
 
                 var person = mapper.Map<Person>(model);
                 var user = mapper.Map<User>(model);
-
+                user.Person = person;
                 dbContext.People.Add(person);
                 dbContext.Users.Add(user);
 

@@ -36,7 +36,7 @@ namespace SOHome
                 var connectionString = Configuration.GetConnectionString("DefaultConnection");
                 optionBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly("SOHome"));
             });
-
+            services.AddSwaggerGen();
             services.AddScoped<IMigrationService, MigrationService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -47,6 +47,8 @@ namespace SOHome
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseRouting();

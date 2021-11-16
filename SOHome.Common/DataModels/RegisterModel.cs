@@ -9,6 +9,9 @@ namespace SOHome.Common.DataModels
         [DisplayName("Nome completo")]
         [Required]
         public string Name { get; set; }
+        [DisplayName("CPF / CNPJ")]
+        [Required]
+        public string Document { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "E-mail")]

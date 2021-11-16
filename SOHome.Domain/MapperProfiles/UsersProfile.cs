@@ -18,6 +18,7 @@ namespace SOHome.Domain.MapperProfiles
             CreateMap<Person, RegisterModel>()
                 .ForMember(dest => dest.Email, map => map.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Name, map => map.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Document, map => map.MapFrom(src => src.Document))
                 .ReverseMap();
         }
     }
