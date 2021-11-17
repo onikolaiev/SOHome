@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.Domain", "SOHome.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.Web", "SOHome.Web\SOHome.Web.csproj", "{B0DA6BD1-1952-4BE1-81AD-3048BDD938B3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.App", "SOHome.App\SOHome.App.csproj", "{7D2674BD-185B-4A6D-B3FA-061757D7DE21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,12 @@ Global
 		{B0DA6BD1-1952-4BE1-81AD-3048BDD938B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{B0DA6BD1-1952-4BE1-81AD-3048BDD938B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0DA6BD1-1952-4BE1-81AD-3048BDD938B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2674BD-185B-4A6D-B3FA-061757D7DE21}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
