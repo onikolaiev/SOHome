@@ -1,24 +1,23 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM ubuntu:latest as base
-# Configure locale
-ENV TZ=America/Sao_Paulo
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-# Setup NodeJs
-RUN apt-get update && apt-get install curl wget apt-transport-https -yq
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
-# Setup Yarn
-RUN npm install --global yarn
+RUN apt-get update 
+RUN apt-get install -yq wget curl apt-transport-https tzdata gnupg2
+ENV TZ=America/Sao_Paulo 
+ENV ASPNETCORE_URLS="http://0.0.0.0:5000"
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime 
+RUN echo $TZ > /etc/timezone
+RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+RUN dpkg -i packages-microsoft-prod.deb
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
+RUN rm packages-microsoft-prod.deb
+RUN apt-get install -yq nodejs gcc g++ make dotnet-sdk-6.0
+RUN /usr/bin/npm install -g npm
 # Setup vars
 WORKDIR /app
-EXPOSE 80
-# Setup ASPNet Core 6.0
-RUN wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-RUN dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb
-RUN apt-get update && apt-get install aspnetcore-runtime-6.0 -yq
+EXPOSE 5000
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM base AS build
 WORKDIR /src
 COPY ["SOHome/SOHome.csproj", "SOHome/"]
 COPY ["SOHome.Domain/SOHome.Domain.csproj", "SOHome.Domain/"]

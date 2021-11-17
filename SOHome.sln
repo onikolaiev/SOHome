@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome", "SOHome\SOHome.csproj", "{B8ABF79E-B586-453F-B380-654E43B769AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.API", "SOHome.API\SOHome.API.csproj", "{B8ABF79E-B586-453F-B380-654E43B769AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.Common", "SOHome.Common\SOHome.Common.csproj", "{3D0DC7CD-CCB4-4EC6-9643-347CC46F0603}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SOHome.Domain", "SOHome.Domain\SOHome.Domain.csproj", "{28F53525-CF17-4BDA-8494-0760B16E80F7}"
-EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "SOHomeVue", "SOHome\ClientApp\SOHomeVue.njsproj", "{F46A4B62-B328-4861-88A9-3A19CEA0E64D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
