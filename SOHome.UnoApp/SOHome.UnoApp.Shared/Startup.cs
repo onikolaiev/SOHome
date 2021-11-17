@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.DependencyInjection;
 
 using SOHome.Common.Services;
 using SOHome.UnoApp.ViewModels;
@@ -9,24 +10,22 @@ namespace SOHome.UnoApp
 {
     public class Startup
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
-        public static IServiceCollection Services { get; private set; }
-
         public static IServiceProvider Init()
         {
-            Services = new ServiceCollection();
+            var services = new ServiceCollection();
             // Register dependencies
-            Services.AddTransient<MainViewModel>();
-            Services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<IMessageService, MessageService>();
 
             // Build the IServiceProvider and return it
-            ServiceProvider = Services.BuildServiceProvider();
-            return ServiceProvider;
+            var provider = services.BuildServiceProvider();
+            Ioc.Default.ConfigureServices(provider);
+            return provider;
         }
 
         public static T GetService<T>() where T : class
         {
-            return (T)ActivatorUtilities.GetServiceOrCreateInstance(ServiceProvider, typeof(T));
+            return Ioc.Default.GetRequiredService<T>();
         }
     }
 }

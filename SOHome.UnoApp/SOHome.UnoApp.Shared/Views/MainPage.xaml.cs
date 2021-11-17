@@ -14,6 +14,7 @@ namespace SOHome.UnoApp.Views
         public MainPage()
         {
             this.InitializeComponent();
+
             DataContext = Startup.GetService<MainViewModel>();
         }
     }

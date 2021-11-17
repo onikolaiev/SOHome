@@ -27,6 +27,7 @@ namespace SOHome.UnoApp
 
             this.InitializeComponent();
             Startup.Init();
+
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif

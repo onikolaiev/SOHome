@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="SOHome.UnoApp.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SOHome.UnoApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="NavView">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Meu perfil" Tag="ProfilePage" />
+                <NavigationViewItem Content="Produtos" Tag="ProductPage" />
+            </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <TextBlock VerticalAlignment="Center" Margin="12,0" Text="LOGIN CONTROL PLACEHOLDER" />
+            </NavigationView.PaneFooter>
+            <ScrollViewer>
+                <Frame x:Name="ContentFrame" Padding="12,0,12,24" IsTabStop="True"/>
+            </ScrollViewer>
+        </NavigationView>
+    </Grid>
+</Page>
