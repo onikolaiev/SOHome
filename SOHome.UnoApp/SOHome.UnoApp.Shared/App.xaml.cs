@@ -26,7 +26,7 @@ namespace SOHome.UnoApp
             InitializeLogging();
 
             this.InitializeComponent();
-
+            Startup.Init();
 #if HAS_UNO || NETFX_CORE
             this.Suspending += OnSuspending;
 #endif
@@ -82,7 +82,7 @@ namespace SOHome.UnoApp
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), args.Arguments);
+                    rootFrame.Navigate(typeof(Views.MainPage), args.Arguments);
                 }
                 // Ensure the current window is active
                 _window.Activate();

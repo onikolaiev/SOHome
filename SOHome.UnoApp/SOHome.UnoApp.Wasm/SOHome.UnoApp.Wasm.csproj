@@ -40,6 +40,7 @@
     <None Include="wwwroot\web.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.0.1" />
@@ -47,6 +48,9 @@
     <PackageReference Include="Uno.UI.RemoteControl" Version="3.11.6" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.0.0" />
     <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SOHome.Common\SOHome.Common.csproj" />
   </ItemGroup>
   <Import Project="..\SOHome.UnoApp.Shared\SOHome.UnoApp.Shared.projitems" Label="Shared" Condition="Exists('..\SOHome.UnoApp.Shared\SOHome.UnoApp.Shared.projitems')" />
 </Project>
