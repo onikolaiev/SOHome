@@ -26,7 +26,7 @@ namespace SOHome.Web.Server
             services.AddDbContext<SOHomeDbContext>(optionBuilder =>
             {
                 var connectionString = Configuration.GetConnectionString("DefaultConnection");
-                optionBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly("SOHome"));
+                optionBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly("SOHome.Web.Server"));
             });
 
             services.AddSwaggerGen();

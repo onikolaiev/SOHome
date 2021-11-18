@@ -1,7 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
+using SOHome.Common;
 using SOHome.Domain.Data;
 using SOHome.Domain.Models;
+
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +28,29 @@ builder.Services.AddDefaultIdentity<User>(options =>
 })
     .AddEntityFrameworkStores<SOHomeDbContext>();
 
-builder.Services.AddAuthentication();
+builder.Services.AddSwaggerGen();
+var key = Encoding.ASCII.GetBytes(AppSettings.Secret);
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+    };
+});
+
+builder.Services.AddScoped<IMigrationService, MigrationService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -34,6 +62,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -56,5 +86,10 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+var migrationService = services.GetRequiredService<IMigrationService>();
+migrationService.Migrate();
 
 app.Run();

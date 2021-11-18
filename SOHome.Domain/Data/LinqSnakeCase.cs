@@ -11,6 +11,10 @@ namespace SOHome.Domain.Data
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
+                Console.WriteLine(entity.GetTableName());
+                if (entity.GetTableName() == "__EFMigrationsHistory")
+                    continue;
+
                 var tableName = entity.GetTableName().ToSnakeCase();
                 entity.SetTableName(tableName);
                 var tableObject = StoreObjectIdentifier.Table(tableName);
