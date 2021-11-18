@@ -1,24 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 using SOHome.Domain.Models;
 
 namespace SOHome.Domain.Data
 {
-    public class SOHomeDbContext : DbContext
+    public class SOHomeDbContext : IdentityDbContext<User, UserGroup, long>
     {
         public SOHomeDbContext()
         {
 
         }
 
-        public SOHomeDbContext(DbContextOptions<SOHomeDbContext> optionsBuilder)
+        public SOHomeDbContext(DbContextOptions optionsBuilder)
             : base(optionsBuilder)
         {
 
         }
 
         public DbSet<Person> People => Set<Person>();
-        public DbSet<User> Users => Set<User>();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -30,6 +30,7 @@ namespace SOHome.Domain.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ToSnakeNames();
             // Declarando as sequencias
             modelBuilder.HasSequence("grid_seq");
             modelBuilder.HasSequence("person_code_seq");

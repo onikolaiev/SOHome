@@ -1,8 +1,9 @@
-﻿namespace SOHome.Domain.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace SOHome.Domain.Models
 {
-    public class User
+    public class User : IdentityUser<long>
     {
-        public long Id { get; set; }
         public int Code { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
