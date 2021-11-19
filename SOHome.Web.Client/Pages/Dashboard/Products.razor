@@ -9,7 +9,7 @@
 {
     <p><em>Carregando...</em></p>
 }
-else if (products.Length == 0)
+else if (products.Count == 0)
 {
     <p><em>Nenhum produto cadastrado!</em></p>
 }
@@ -22,6 +22,7 @@ else
                 <th>Código de barras</th>
                 <th>Nome</th>
                 <th>Preço</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,12 @@ else
                     <td>@product.Barcode</td>
                     <td>@product.Name</td>
                     <td>@product.Price</td>
+                    <td>
+                        <div>
+                            <button @onclick="@(e => EditProduct(@product.Code))">✏️</button>
+                            <button @onclick="@(e => RemoveProduct(@product.Code))">❌</button>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
@@ -42,16 +49,42 @@ else
 </div>
 
 @code {
-    private ProductModel[]? products;
+    private List<ProductModel>? products;
     private void CreateProduct()
     {
         navigationManager.NavigateTo("dashboard/products/create");
+    }
+
+    private async Task EditProduct(int code)
+    {
+        try
+        {
+            products = await Http.GetFromJsonAsync<List<ProductModel>>("api/products");
+            navigationManager.NavigateTo("dashboard/products/create");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    private async Task RemoveProduct(int code)
+    {
+        try
+        {
+            await Http.DeleteAsync($"api/products/{code}");
+            var produto = products.First(x => x.Code == code);
+            products.Remove(produto);
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
     }
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            products = await Http.GetFromJsonAsync<ProductModel[]>("api/products");
+            products = await Http.GetFromJsonAsync<List<ProductModel>>("api/products");
         }
         catch (AccessTokenNotAvailableException exception)
         {

@@ -5,7 +5,7 @@ namespace SOHome.Domain.Models
     public class Person
     {
         public long Id { get; set; }
-        public int Code { get; set; }
+        public int? Code { get; set; }
         [Required]
         public string Document { get; set; }
         [Required(AllowEmptyStrings = false)]

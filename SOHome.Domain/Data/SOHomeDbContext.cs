@@ -54,9 +54,9 @@ namespace SOHome.Domain.Data
 
             // Configuração da tabela de produtos
             var productEntity = modelBuilder.Entity<Product>();
-            userEntity.Property(x => x.Id)
+            productEntity.Property(x => x.Id)
             .HasDefaultValueSql("NEXTVAL('grid_seq')");
-            userEntity.Property(x => x.Code)
+            productEntity.Property(x => x.Code)
                 .HasDefaultValueSql("NEXTVAL('product_code_seq')");
         }
     }

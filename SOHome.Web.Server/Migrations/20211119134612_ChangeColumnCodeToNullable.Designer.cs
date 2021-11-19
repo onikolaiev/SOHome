@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SOHome.Domain.Data;
@@ -11,9 +12,10 @@ using SOHome.Domain.Data;
 namespace SOHome.Web.Server.Migrations
 {
     [DbContext(typeof(SOHomeDbContext))]
-    partial class SOHomeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211119134612_ChangeColumnCodeToNullable")]
+    partial class ChangeColumnCodeToNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,28 +226,18 @@ namespace SOHome.Web.Server.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("NEXTVAL('grid_seq')");
+                        .HasColumnName("id");
 
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("barcode");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int?>("Code")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("code")
-                        .HasDefaultValueSql("NEXTVAL('product_code_seq')");
+                        .HasColumnName("code");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
-
-                    b.Property<decimal?>("Price")
-                        .HasColumnType("numeric")
-                        .HasColumnName("price");
 
                     b.HasKey("Id")
                         .HasName("pk_products");
@@ -269,7 +261,7 @@ namespace SOHome.Web.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("code")
-                        .HasDefaultValueSql("NEXTVAL('user_code_seq')");
+                        .HasDefaultValueSql("NEXTVAL('product_code_seq')");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

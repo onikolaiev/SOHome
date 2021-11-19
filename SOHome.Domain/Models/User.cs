@@ -4,7 +4,7 @@ namespace SOHome.Domain.Models
 {
     public class User : IdentityUser<long>
     {
-        public int Code { get; set; }
+        public int? Code { get; set; }
         public char Flag { get; set; } = 'A';
 
         public long PersonId { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using SOHome.Common.DataModels;
 using SOHome.Common.Models;
 using SOHome.Domain.Data;
+using SOHome.Domain.Models;
 
 namespace SOHome.Web.Server.Controllers
 {
@@ -99,7 +100,7 @@ namespace SOHome.Web.Server.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{code}")]
         public async Task<IActionResult> DeleteProductAsync(int code)
         {
             var product = await dbContext.Products

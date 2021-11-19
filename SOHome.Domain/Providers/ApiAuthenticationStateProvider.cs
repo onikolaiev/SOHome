@@ -87,7 +87,6 @@ namespace SOHome.Domain.Providers
                     else
                         claims.Add(new Claim(ClaimTypes.Role, roles.ToString()));
                 }
-                Console.WriteLine($"Chave: {keyValue.Key} - Valor: {valor}");
                 claims.Add(new Claim(chave, valor));
             }
 
