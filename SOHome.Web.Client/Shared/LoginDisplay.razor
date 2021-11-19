@@ -2,7 +2,7 @@
 @inject IAuthService authService
 <AuthorizeView>
     <Authorized>
-        <a href="authentication/profile">Olá, @context.User.Identity.Name!</a>
+        <a href="dashboard">Olá, @context.User.Identity.Name!</a>
         <button class="nav-link btn btn-link" @onclick="BeginSignOut">Sair do sistema</button>
     </Authorized>
     <NotAuthorized>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using SOHome.Common.Models;
 using SOHome.Domain.Models;
 
 namespace SOHome.Domain.Data
@@ -19,6 +20,7 @@ namespace SOHome.Domain.Data
         }
 
         public DbSet<Person> People => Set<Person>();
+        public DbSet<Product> Products => Set<Product>();
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -34,6 +36,7 @@ namespace SOHome.Domain.Data
             modelBuilder.HasSequence("grid_seq");
             modelBuilder.HasSequence("person_code_seq");
             modelBuilder.HasSequence("user_code_seq");
+            modelBuilder.HasSequence("product_code_seq");
 
             // Configuração da tabela de pessoas
             var personEntity = modelBuilder.Entity<Person>();
@@ -48,6 +51,13 @@ namespace SOHome.Domain.Data
             .HasDefaultValueSql("NEXTVAL('grid_seq')");
             userEntity.Property(x => x.Code)
                 .HasDefaultValueSql("NEXTVAL('user_code_seq')");
+
+            // Configuração da tabela de produtos
+            var productEntity = modelBuilder.Entity<Product>();
+            userEntity.Property(x => x.Id)
+            .HasDefaultValueSql("NEXTVAL('grid_seq')");
+            userEntity.Property(x => x.Code)
+                .HasDefaultValueSql("NEXTVAL('product_code_seq')");
         }
     }
 }

@@ -1,0 +1,61 @@
+﻿@page "/dashboard/products"
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@layout PanelLayout
+@attribute [Authorize]
+@inject HttpClient Http
+@inject NavigationManager navigationManager
+
+@if (products == null)
+{
+    <p><em>Carregando...</em></p>
+}
+else if (products.Length == 0)
+{
+    <p><em>Nenhum produto cadastrado!</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Código de barras</th>
+                <th>Nome</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Code</td>
+                    <td>@product.Barcode</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div>
+    <button class="btn btn-primary" @onclick="CreateProduct">Cadastrar produto</button>
+</div>
+
+@code {
+    private ProductModel[]? products;
+    private void CreateProduct()
+    {
+        navigationManager.NavigateTo("dashboard/products/create");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            products = await Http.GetFromJsonAsync<ProductModel[]>("api/products");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+}
