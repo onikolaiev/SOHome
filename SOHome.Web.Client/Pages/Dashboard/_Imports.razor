@@ -1,1 +1,19 @@
-﻿@layout PanelLayout
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using SOHome.Web.Client
+@using SOHome.Web.Client.Shared
+@using SOHome.Common.DataModels
+@using SOHome.Common.Interfaces
+@using SOHome.Common.Services
+@using SOHome.Domain.Services
+@using Microsoft.AspNetCore.Authorization
+
+@layout PanelLayout
+@attribute [Authorize]

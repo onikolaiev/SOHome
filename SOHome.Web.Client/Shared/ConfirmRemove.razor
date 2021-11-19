@@ -1,0 +1,14 @@
+<div>
+    <p>Deseja realmente excluir esse registro ?</p>
+
+    <button @onclick="Confirm" class="btn btn-danger">Confirmar</button>
+</div>
+
+@code {
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; }
+
+    async Task Confirm() =>  await BlazoredModal.CloseAsync(ModalResult.Ok(true));
+    async Task Cancel() => await BlazoredModal.CancelAsync();
+
+}

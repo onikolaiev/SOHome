@@ -1,8 +1,8 @@
 using Blazored.LocalStorage;
+using Blazored.Modal;
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 using SOHome.Common.Interfaces;
@@ -27,6 +27,6 @@ builder.Services.AddAuthorizationCore(options => { });
 builder.Services.AddScoped<IAuthService, APIAuthService>();
 builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
 builder.Services.AddBlazoredLocalStorage();
-
+builder.Services.AddBlazoredModal();
 
 await builder.Build().RunAsync();

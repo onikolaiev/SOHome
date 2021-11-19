@@ -2,7 +2,9 @@
 @inject IAuthService authService
 @inject NavigationManager navigationManager
 @page "/login"
+@page "/login/{returnUrl}"
 @attribute [AllowAnonymous]
+
 @if (showErrors)
 {
     <div class="alert alert-danger" role="alert">
@@ -37,12 +39,7 @@
     private LoginModel loginModel = new LoginModel();
     private bool showErrors;
     private string errors;
-    private string returnUrl;
-
-    public void OnGet(string returnUrl = null)
-    {
-        this.returnUrl = returnUrl;
-    }
+    [Parameter]public string returnUrl { get; set; }
 
     private async Task HandleLogin()
     {
