@@ -11,7 +11,6 @@ namespace SOHome.Domain.Data
         {
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-                Console.WriteLine(entity.GetTableName());
                 if (entity.GetTableName() == "__EFMigrationsHistory")
                     continue;
 

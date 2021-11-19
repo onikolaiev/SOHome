@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using SOHome.Web.Shared;
+using SOHome.Common.Models;
 
 namespace SOHome.Web.Server.Controllers
 {

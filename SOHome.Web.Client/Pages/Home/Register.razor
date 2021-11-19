@@ -1,0 +1,76 @@
+﻿@using SOHome.Common.Exceptions
+@inject IAuthService authService
+@inject NavigationManager navigationManager
+@page "/register"
+@attribute [AllowAnonymous]
+
+@if (showErrors)
+{
+    <div class="alert alert-danger" role="alert">
+        <p>@errors</p>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <h5>Cadastro de usuário</h5>
+        <EditForm Model="registerModel" OnValidSubmit="HandleRegistration">
+            <DataAnnotationsValidator/>
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="document">CPF / CNPJ</label>
+                <InputText id="document" class="form-control" @bind-Value="registerModel.Document"/>
+                <ValidationMessage For="@(() => registerModel.Document)" />
+            </div>
+            <div class="form-group">
+                <label for="username">Nome de usuário</label>
+                <InputText id="username" class="form-control" @bind-Value="registerModel.Username"/>
+                <ValidationMessage For="@(() => registerModel.Username)" />
+            </div>
+            <div class="form-group">
+                <label for="name">Nome completo</label>
+                <InputText id="name" class="form-control" @bind-Value="registerModel.Name"/>
+                <ValidationMessage For="@(() => registerModel.Name)" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText id="username" class="form-control" @bind-Value="registerModel.Email"/>
+                <ValidationMessage For="@(() => registerModel.Email)" />
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <InputText id="password" type="password" class="form-control" @bind-Value="registerModel.Password"/>
+                <ValidationMessage For="@(() => registerModel.Password)" />
+            </div>
+            <div class="form-group">
+                <label for="passwordConfirmation">Confirmação de senha</label>
+                <InputText id="passwordConfirmation" type="password" class="form-control" @bind-Value="registerModel.ConfirmPassword"/>
+                <ValidationMessage For="@(() => registerModel.ConfirmPassword)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar usuário</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private RegisterModel registerModel = new RegisterModel();
+    private bool showErrors;
+    private string errors;
+
+    private async Task HandleRegistration()
+    {
+        showErrors = false;
+
+        try
+        {
+            var result = await authService.RegisterAsync(registerModel);
+            navigationManager.NavigateTo("/dashboard");
+        }
+        catch(RegisterException ex)
+        {
+            errors = ex.StackTrace;
+            showErrors = true;
+        }
+    }
+}

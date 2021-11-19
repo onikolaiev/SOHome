@@ -81,8 +81,6 @@ namespace SOHome.Web.Server.Migrations
                 {
                     id = table.Column<long>(type: "bigint", nullable: false, defaultValueSql: "NEXTVAL('grid_seq')"),
                     code = table.Column<int>(type: "integer", nullable: false, defaultValueSql: "NEXTVAL('user_code_seq')"),
-                    username = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false),
                     flag = table.Column<char>(type: "character(1)", nullable: false),
                     person_id = table.Column<long>(type: "bigint", nullable: false),
                     user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),

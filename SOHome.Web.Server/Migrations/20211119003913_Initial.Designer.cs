@@ -12,7 +12,7 @@ using SOHome.Domain.Data;
 namespace SOHome.Web.Server.Migrations
 {
     [DbContext(typeof(SOHomeDbContext))]
-    [Migration("20211118213521_Initial")]
+    [Migration("20211119003913_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -216,7 +216,7 @@ namespace SOHome.Web.Server.Migrations
                     b.HasKey("Id")
                         .HasName("pk_people");
 
-                    b.ToTable("people", (string)null);
+                    b.ToTable("people");
                 });
 
             modelBuilder.Entity("SOHome.Domain.Models.User", b =>
@@ -273,11 +273,6 @@ namespace SOHome.Web.Server.Migrations
                         .HasColumnType("character varying(256)")
                         .HasColumnName("normalized_user_name");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text")
                         .HasColumnName("password_hash");
@@ -306,11 +301,6 @@ namespace SOHome.Web.Server.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)")
                         .HasColumnName("user_name");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("username");
 
                     b.HasKey("Id")
                         .HasName("pk_asp_net_users");

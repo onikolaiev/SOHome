@@ -25,7 +25,6 @@ namespace SOHome.Domain.Data
 #if DEBUG
             optionsBuilder.EnableSensitiveDataLogging();
 #endif
-            optionsBuilder.UseSnakeCaseNamingConvention();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

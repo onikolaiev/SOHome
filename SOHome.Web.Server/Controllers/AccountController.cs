@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using SOHome.Common.DataModels;
 using SOHome.Domain.Data;
@@ -27,7 +29,7 @@ namespace SOHome.Web.Server.Controllers
             this.signInManager = signInManager;
             this.dbContext = dbContext;
         }
-
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync(RegisterModel registerModel)
         {
@@ -42,12 +44,12 @@ namespace SOHome.Web.Server.Controllers
             {
                 var errors = result.Errors.Select(x => x.Description);
 
-                return BadRequest(string.Join("\n", errors));
+                return Unauthorized(string.Join("\n", errors));
             }
 
             return Ok(mapper.Map<UserDto>(user));
         }
-
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync(LoginModel loginModel)
         {
@@ -56,10 +58,12 @@ namespace SOHome.Web.Server.Controllers
 
             if (!result.Succeeded)
             {
-                return BadRequest("Dados inválidos!");
+                return Unauthorized("Dados inválidos!");
             }
 
-            var user = await userManager.FindByNameAsync(loginModel.Username);
+            var user = await dbContext.Users
+                .Include(x => x.Person)
+                .FirstAsync(x => x.NormalizedUserName == loginModel.Username.ToUpper());
             var userDto = mapper.Map<UserDto>(user);
             return Ok(userDto);
         }
