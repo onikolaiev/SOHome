@@ -86,3 +86,8 @@ a, .btn-link {
         transform: rotate(360deg)
     }
 }
+
+.div-selected {
+    background-color: rgba(255,255,255,0.08);
+    color: white;
+}
