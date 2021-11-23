@@ -19,15 +19,17 @@ namespace SOHome.Web.Server.Controllers
         private readonly IMapper mapper;
         private readonly SignInManager<User> signInManager;
         private readonly SOHomeDbContext dbContext;
+        private readonly RoleManager<UserGroup> roleManager;
 
         public AccountController(UserManager<User> userManager,
             IMapper mapper, SignInManager<User> signInManager,
-            SOHomeDbContext dbContext)
+            SOHomeDbContext dbContext, RoleManager<UserGroup> roleManager)
         {
             this.userManager = userManager;
             this.mapper = mapper;
             this.signInManager = signInManager;
             this.dbContext = dbContext;
+            this.roleManager = roleManager;
         }
         [AllowAnonymous]
         [HttpPost("Register")]
@@ -66,6 +68,34 @@ namespace SOHome.Web.Server.Controllers
                 .FirstAsync(x => x.NormalizedUserName == loginModel.Username.ToUpper());
             var userDto = mapper.Map<UserDto>(user);
             return Ok(userDto);
+        }
+
+        [HttpPost("group")]
+        public async Task<IActionResult> AddGroupAsync(UserGroupModel groupModel)
+        {
+            var roleExists = await roleManager.RoleExistsAsync(groupModel.Name);
+            if (roleExists)
+            {
+                return BadRequest("Grupo já existe");
+            }
+
+            var role = mapper.Map<UserGroup>(groupModel);
+            var result = await roleManager.CreateAsync(role);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest("Erro criar grupo!");
+            }
+
+            return Ok(groupModel);
+        }
+
+        [HttpGet("group")]
+        public async Task<IActionResult> GetGroupsAsync()
+        {
+            var roles = await dbContext.Roles.ToArrayAsync();
+
+            return Ok(roles);
         }
     }
 }
