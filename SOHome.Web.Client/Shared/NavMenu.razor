@@ -1,4 +1,5 @@
 ﻿@using SOHome.Common
+@inject NavigationManager navigationManager;
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">@AppSettings.AppName</a>
@@ -16,18 +17,18 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" @onclick="()=> showProductMenu =! showProductMenu">
+            <NavLink class="@ProductMenuClass" @onclick="()=> ShowProductMenu =! ShowProductMenu">
                 <span class="oi oi-basket" aria-hidden="true"></span> Produtos
             </NavLink>
-            @if (showProductMenu)
+            @if (ShowProductMenu)
             {
-                        <NavLink class="expand-menu nav-link" href="dashboard/products">
-                            <span class="oi oi-list" aria-hidden="true"></span> Listar todos
-                        </NavLink>
-                        <NavLink class="expand-menu nav-link" href="dashboard/product">
-                            <span class="oi oi-plus" aria-hidden="true"></span> Cadastrar novo
-                        </NavLink>
-             }   
+                <NavLink class="expand-menu nav-link" href="dashboard/products">
+                    <span class="oi oi-list" aria-hidden="true"></span> Listar todos
+                </NavLink>
+                <NavLink class="expand-menu nav-link" href="dashboard/product">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Cadastrar novo
+                </NavLink>
+            }
         </div>
     </nav>
 </div>
@@ -35,10 +36,33 @@
 @code {
     private bool collapseNavMenu = true;
     private bool showProductMenu;
+    public bool ShowProductMenu
+    {
+        get => showProductMenu;
+        set
+        {
+            showProductMenu = value;
+            StateHasChanged();
+        }
+    }
+    private string ProductMenuClass => ShowProductMenu ? "nav-link div-selected" : "nav-link";
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to the event
+        navigationManager.LocationChanged += (obj, args) =>
+        {
+            var uri = new Uri(args.Location);
+            if (uri.PathAndQuery == "/" || uri.PathAndQuery == "/dashboard")
+                ShowProductMenu = false;
+        };
+
+        base.OnInitialized();
     }
 }
